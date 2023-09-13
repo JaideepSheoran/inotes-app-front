@@ -1,0 +1,77 @@
+.about-body{
+    color: black;
+    font-size: larger;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.userbasic{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.about-top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.about-bottom{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    color: black;
+}
+
+.desc, .other-info, .about-top{
+    margin: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px 0 rgb(0 0 0 / 20%);
+}
+
+.desc:hover, .other-info:hover, .about-top:hover{
+    box-shadow: 0 6px 6px 0 rgb(0 0 0 / 20%);
+}
+
+.user-name{
+    font-size: 2rem;
+    font-weight: bolder;
+}
+
+.user-info > p {
+    margin: 0;
+    font-weight: 200;
+}
+
+h1{
+    font-weight: 600;
+    font-size: 25px;
+}
+
+@media only screen and (max-width : 800px) {
+    .about-bottom{
+        display: block;
+    }
+
+}
+
+@media only screen and (max-width : 400px) {
+    .user-info > p{
+        font-size: 15px;
+    }
+    .user-name {
+        font-size: 1.5rem;
+    }
+    .desc, .other-info{
+        font-size: 14px;
+    }
+    .userimg{
+        margin: auto;
+    }
+    #userimg{
+        border-radius: 50%;
+    }
+}

@@ -1,0 +1,32 @@
+.note {
+    height: auto;
+    padding: 20px;
+}
+
+.note pre {
+    border: 2px solid gray;
+    border-radius: 10px;
+    font-family: monospace;
+    padding: 10px;
+    margin: 10px 0px;
+    font-weight: 600;
+}
+
+.note h3 {
+    font-weight: bold;
+}
+
+.note hr {
+    height: 2px;
+}
+
+.note span {
+    background-color: rgb(185, 185, 185);
+    color: black;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-size: 12px;
+    margin: 0px 1px;
+    cursor: pointer;
+    font-weight: bold;
+}
