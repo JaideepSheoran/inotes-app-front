@@ -1,34 +1,19 @@
-import React, { useContext } from 'react'
-import { Link } from 'react-router-dom';
-import { UserContext } from '../App';
+import React from 'react'
+import { Link  } from 'react-router-dom';
 import logo from '../static/logo.svg';
-
-
-const Auth = () => {
-  const [state, dispatch] = useContext(UserContext);
-  if (state) {
-    return (
-      <>
-        <li className="nav-item">
-          <Link className='nav-link active' to="/logout">Logout</Link>
-        </li>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <li className="nav-item">
-          <Link className='nav-link active' to="/adduser">Register</Link>
-        </li>
-        <li className="nav-item">
-          <Link className='nav-link active' to="/authuser">Login</Link>
-        </li>
-      </>
-    );
-  }
-}
+import { useAuth } from '../AuthContext';
 
 function Navbar() {
+  const { logout, isAuthenticated } = useAuth();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
+  }
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -49,7 +34,21 @@ function Navbar() {
             <li className="nav-item">
               <Link className='nav-link active' to="/contact">Notes</Link>
             </li>
-            <Auth/>
+            {
+              isAuthenticated === true && <li className='nav-item'>
+                <Link onClick={handleLogout} className='nav-link active' to='#'>LogOut</Link>
+              </li>
+            }
+            {
+              isAuthenticated === false && <>
+                <li className='nav-item'>
+                <Link className='nav-link active' to='/authuser'>Login</Link>
+              </li>
+              <li className='nav-item'>
+                <Link className='nav-link active' to='/adduser'>Register</Link>
+              </li>
+              </>
+            }
           </ul>
         </div>
       </div>

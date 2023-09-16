@@ -1,12 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
 import './SignUp.css';
-import { UserContext } from '../App';
 
 function SignIn() {
-  const [state, dispatch] = useContext(UserContext);
+  const nav = useNavigate();
+  const {login} = useAuth();
   const [btnData, setBtnData] = useState('Login');
-  let navigate = useNavigate();
   const [data, setData] = useState({
     email: '',
     password: ''
@@ -20,29 +20,17 @@ function SignIn() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setBtnData('Logging In...');
     const {email, password} = data;
-    fetch('/authuser', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({email, password})
-    }).then((res) => {
-        if(res.status === 200){
-          setBtnData('Login');
-          dispatch({type: 'USER', payload: true});
-          navigate('/');
-        }
-        return res.json();
-    }).then((data)=>{
+    try {
+      const res = await login(email, password);
       setBtnData('Login');
-      alert(data.message);
-    }).catch((err) => { 
-      console.error('Failed to send Data', err); 
-    });
+      nav('/');
+    } catch (error) {
+      window.alert(error)
+    }
 
   }
 

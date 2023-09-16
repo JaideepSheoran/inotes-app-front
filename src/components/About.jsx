@@ -1,53 +1,26 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { UserContext } from '../App';
-import {useNavigate} from 'react-router-dom';
+import React from 'react';
+import { useAuth } from '../AuthContext';
 import './About.css';
 import userimg from '../static/user.png';
 
 function About() {
 
-  const [state, dispatch] = useContext(UserContext);
-  const navigate = useNavigate();
-  const [userData, setUserData] = useState({});
+  const { user } = useAuth();
 
-  const callAboutPage = async ()=>{      
-      try {
-        const res = await fetch('/about', {
-          method: 'GET',
-          headers : {
-            Accept : 'application/json',
-            'Content-Type' : 'application/json'
-          },
-          credentials : 'include'
-        });
-        const data = await res.json();
-        setUserData(data);
-        dispatch({type: 'USER', payload: true});
-        if(!res.status === 200){
-          throw new Error(res.error);
-        }
-      } catch (error) {
-          navigate('/authuser');
-      }
-  }
-
-  useEffect(()=>{
-    callAboutPage();
-  }, []);
 
   return (
     <div className='about-body'>
       <div className='about-top'>
-        <div className='userbasic'>
+        { user && <div className='userbasic'>
           <div className='user-name'>
-          {userData.name}
+          {user.name}
           </div>
           <div className='user-info'>
-            <p>{userData.email}</p>
-            <p>+91-{userData.phone}</p>
-            <p>{userData.work}</p>
+            <p>{user.email}</p>
+            <p>+91-{user.phone}</p>
+            <p>{user.work}</p>
           </div>
-        </div>
+        </div>}
         <div className='userimg'>
           <img id='userimg' height='150px' src={userimg} alt='img'/>
         </div>
